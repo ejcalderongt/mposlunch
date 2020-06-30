@@ -13,11 +13,11 @@ GO
 ALTER TABLE [dbo].[StatusPedido_Detalle] DROP CONSTRAINT [DF_StatusPedido_Detalle_FechaRegistro]
 GO
 
-/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 22/06/2020 19:20:46 ******/
+/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 30/06/2020 14:40:17 ******/
 DROP TABLE [dbo].[StatusPedido_Detalle]
 GO
 
-/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 22/06/2020 19:20:46 ******/
+/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 30/06/2020 14:40:17 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -61,4 +61,6 @@ GO
 
 ALTER TABLE [dbo].[StatusPedido_Detalle] CHECK CONSTRAINT [FK_StatusPedido_Detalle_StatusPedido]
 GO
+
+
 
