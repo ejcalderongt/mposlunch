@@ -1,0 +1,55 @@
+USE [mposlunch]
+GO
+
+ALTER TABLE [dbo].[Pedido] DROP CONSTRAINT [FK_Pedido_Pedido]
+GO
+
+ALTER TABLE [dbo].[Pedido] DROP CONSTRAINT [FK_Pedido_P_CLIENTE]
+GO
+
+ALTER TABLE [dbo].[Pedido] DROP CONSTRAINT [DF_Pedido_FechaRegistro]
+GO
+
+/****** Object:  Table [dbo].[Pedido]    Script Date: 30/06/2020 14:42:14 ******/
+DROP TABLE [dbo].[Pedido]
+GO
+
+/****** Object:  Table [dbo].[Pedido]    Script Date: 30/06/2020 14:42:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Pedido](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Atendido] [bit] NOT NULL,
+	[Detalle] [nvarchar](50) NOT NULL,
+	[IdEmpleado] [nvarchar](50) NOT NULL,
+	[FechaRegistro] [datetime] NULL,
+	[ID_CLIENTE] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Pedido] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Pedido] ADD  CONSTRAINT [DF_Pedido_FechaRegistro]  DEFAULT (getdate()) FOR [FechaRegistro]
+GO
+
+ALTER TABLE [dbo].[Pedido]  WITH CHECK ADD  CONSTRAINT [FK_Pedido_P_CLIENTE] FOREIGN KEY([ID_CLIENTE])
+REFERENCES [dbo].[P_CLIENTE] ([ID])
+GO
+
+ALTER TABLE [dbo].[Pedido] CHECK CONSTRAINT [FK_Pedido_P_CLIENTE]
+GO
+
+ALTER TABLE [dbo].[Pedido]  WITH CHECK ADD  CONSTRAINT [FK_Pedido_Pedido] FOREIGN KEY([IdEmpleado])
+REFERENCES [dbo].[Empleado] ([ID])
+GO
+
+ALTER TABLE [dbo].[Pedido] CHECK CONSTRAINT [FK_Pedido_Pedido]
+GO
+
+
