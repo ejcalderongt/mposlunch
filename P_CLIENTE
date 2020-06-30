@@ -16,11 +16,11 @@ GO
 ALTER TABLE [dbo].[P_CLIENTE] DROP CONSTRAINT [DF__p_cliente__IdTip__5629CD9C]
 GO
 
-/****** Object:  Table [dbo].[P_CLIENTE]    Script Date: 23/06/2020 11:52:32 ******/
+/****** Object:  Table [dbo].[P_CLIENTE]    Script Date: 30/06/2020 14:33:48 ******/
 DROP TABLE [dbo].[P_CLIENTE]
 GO
 
-/****** Object:  Table [dbo].[P_CLIENTE]    Script Date: 23/06/2020 11:52:32 ******/
+/****** Object:  Table [dbo].[P_CLIENTE]    Script Date: 30/06/2020 14:33:48 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -30,7 +30,7 @@ GO
 CREATE TABLE [dbo].[P_CLIENTE](
 	[CODIGO_CLIENTE] [int] IDENTITY(1,1) NOT NULL,
 	[ID] [nvarchar](50) NOT NULL,
-	[Contraseña] [nvarchar](50) NOT NULL,
+	[Contraseña] [nvarchar](200) NOT NULL,
 	[IdTipoEmpleado] [int] NULL,
 	[Nombre] [nvarchar](50) NOT NULL,
 	[Celular] [int] NOT NULL,
@@ -40,9 +40,9 @@ CREATE TABLE [dbo].[P_CLIENTE](
 	[Sueldo] [money] NULL,
 	[NIT] [nvarchar](15) NULL,
 	[IsValid] [bit] NULL,
- CONSTRAINT [PK_P_CLIENTE_1] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_P_CLIENTE] PRIMARY KEY CLUSTERED 
 (
-	[CODIGO_CLIENTE] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
  CONSTRAINT [U_ID] UNIQUE NONCLUSTERED 
 (
@@ -51,13 +51,13 @@ CREATE TABLE [dbo].[P_CLIENTE](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[P_CLIENTE] ADD  DEFAULT ((5)) FOR [IdTipoEmpleado]
+ALTER TABLE [dbo].[P_CLIENTE] ADD  CONSTRAINT [DF__p_cliente__IdTip__5629CD9C]  DEFAULT ((5)) FOR [IdTipoEmpleado]
 GO
 
-ALTER TABLE [dbo].[P_CLIENTE] ADD  DEFAULT ((0)) FOR [Sueldo]
+ALTER TABLE [dbo].[P_CLIENTE] ADD  CONSTRAINT [DF__p_cliente__Sueld__571DF1D5]  DEFAULT ((0)) FOR [Sueldo]
 GO
 
-ALTER TABLE [dbo].[P_CLIENTE] ADD  DEFAULT ('CF') FOR [NIT]
+ALTER TABLE [dbo].[P_CLIENTE] ADD  CONSTRAINT [DF__p_cliente__Nit__5812160E]  DEFAULT ('CF') FOR [NIT]
 GO
 
 ALTER TABLE [dbo].[P_CLIENTE]  WITH CHECK ADD  CONSTRAINT [FK_P_CLIENTE_P_DEPARTAMENTO] FOREIGN KEY([CODIGO_DEPARTAMENTO])
@@ -73,4 +73,6 @@ GO
 
 ALTER TABLE [dbo].[P_CLIENTE] CHECK CONSTRAINT [FK_P_CLIENTE_P_MUNICIPIO]
 GO
+
+
 
