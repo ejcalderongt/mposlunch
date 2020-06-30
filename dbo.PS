@@ -1,0 +1,44 @@
+USE [mposlunch]
+GO
+
+ALTER TABLE [dbo].[PS] DROP CONSTRAINT [FK_PS_P_CLIENTE]
+GO
+
+ALTER TABLE [dbo].[PS] DROP CONSTRAINT [DF_PS_FechaRegistro]
+GO
+
+/****** Object:  Table [dbo].[PS]    Script Date: 30/06/2020 14:37:34 ******/
+DROP TABLE [dbo].[PS]
+GO
+
+/****** Object:  Table [dbo].[PS]    Script Date: 30/06/2020 14:37:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PS](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Atendido] [bit] NULL,
+	[Detalle] [nvarchar](50) NULL,
+	[FechaRegistro] [datetime] NULL,
+	[ID_CLIENTE] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_PS] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PS] ADD  CONSTRAINT [DF_PS_FechaRegistro]  DEFAULT (getdate()) FOR [FechaRegistro]
+GO
+
+ALTER TABLE [dbo].[PS]  WITH CHECK ADD  CONSTRAINT [FK_PS_P_CLIENTE] FOREIGN KEY([ID_CLIENTE])
+REFERENCES [dbo].[P_CLIENTE] ([ID])
+GO
+
+ALTER TABLE [dbo].[PS] CHECK CONSTRAINT [FK_PS_P_CLIENTE]
+GO
+
+
