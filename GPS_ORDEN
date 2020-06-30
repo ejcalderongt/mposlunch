@@ -1,0 +1,37 @@
+USE [mposlunch]
+GO
+
+ALTER TABLE [dbo].[Gps_Orden] DROP CONSTRAINT [FK_Gps_Orden_P_CLIENTE]
+GO
+
+/****** Object:  Table [dbo].[Gps_Orden]    Script Date: 30/06/2020 14:36:19 ******/
+DROP TABLE [dbo].[Gps_Orden]
+GO
+
+/****** Object:  Table [dbo].[Gps_Orden]    Script Date: 30/06/2020 14:36:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Gps_Orden](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[ID_CLIENTE] [nvarchar](50) NOT NULL,
+	[IdPedido] [int] NULL,
+	[PuntoGeografico] [geography] NULL,
+ CONSTRAINT [PK_Gps_Orden] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Gps_Orden]  WITH CHECK ADD  CONSTRAINT [FK_Gps_Orden_P_CLIENTE] FOREIGN KEY([ID_CLIENTE])
+REFERENCES [dbo].[P_CLIENTE] ([ID])
+GO
+
+ALTER TABLE [dbo].[Gps_Orden] CHECK CONSTRAINT [FK_Gps_Orden_P_CLIENTE]
+GO
+
+
