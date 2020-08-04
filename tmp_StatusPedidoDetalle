@@ -1,0 +1,65 @@
+USE [mposlunch]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] DROP CONSTRAINT [FK_StatusPedido_Detalle_TmpD_PEDIDO]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] DROP CONSTRAINT [FK_StatusPedido_Detalle_StatusPedido]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] DROP CONSTRAINT [FK_StatusPedido_Detalle_P_CLIENTE_DIR]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] DROP CONSTRAINT [DF_StatusPedido_Detalle_FechaRegistro]
+GO
+
+/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 4/08/2020 10:49:47 ******/
+DROP TABLE [dbo].[StatusPedido_Detalle]
+GO
+
+/****** Object:  Table [dbo].[StatusPedido_Detalle]    Script Date: 4/08/2020 10:49:47 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[StatusPedido_Detalle](
+	[CODIGO] [int] IDENTITY(1,1) NOT NULL,
+	[CODIGO_STATUSPEDIDO] [int] NOT NULL,
+	[COMENTARIO] [nvarchar](50) NOT NULL,
+	[IdPedido] [nvarchar](50) NOT NULL,
+	[FechaRegistro] [datetime] NULL,
+	[CODIGO_DIRECCION] [int] NOT NULL,
+ CONSTRAINT [PK_StatusPedido_Detalle] PRIMARY KEY CLUSTERED 
+(
+	[CODIGO] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] ADD  CONSTRAINT [DF_StatusPedido_Detalle_FechaRegistro]  DEFAULT (getdate()) FOR [FechaRegistro]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle]  WITH CHECK ADD  CONSTRAINT [FK_StatusPedido_Detalle_P_CLIENTE_DIR] FOREIGN KEY([CODIGO_DIRECCION])
+REFERENCES [dbo].[P_CLIENTE_DIR] ([CODIGO_DIRECCION])
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] CHECK CONSTRAINT [FK_StatusPedido_Detalle_P_CLIENTE_DIR]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle]  WITH CHECK ADD  CONSTRAINT [FK_StatusPedido_Detalle_StatusPedido] FOREIGN KEY([CODIGO_STATUSPEDIDO])
+REFERENCES [dbo].[StatusPedido] ([CODIGO])
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] CHECK CONSTRAINT [FK_StatusPedido_Detalle_StatusPedido]
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle]  WITH CHECK ADD  CONSTRAINT [FK_StatusPedido_Detalle_TmpD_PEDIDO] FOREIGN KEY([IdPedido])
+REFERENCES [dbo].[TmpD_PEDIDO] ([COREL])
+GO
+
+ALTER TABLE [dbo].[StatusPedido_Detalle] CHECK CONSTRAINT [FK_StatusPedido_Detalle_TmpD_PEDIDO]
+GO
+
+
