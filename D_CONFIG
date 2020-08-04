@@ -1,0 +1,39 @@
+USE [mposlunch]
+GO
+
+ALTER TABLE [dbo].[D_CONFIG] DROP CONSTRAINT [DF_D_CONFIG_AXIOS_FechaRegistro]
+GO
+
+/****** Object:  Table [dbo].[D_CONFIG]    Script Date: 4/08/2020 11:02:00 ******/
+DROP TABLE [dbo].[D_CONFIG]
+GO
+
+/****** Object:  Table [dbo].[D_CONFIG]    Script Date: 4/08/2020 11:02:00 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[D_CONFIG](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Ruta] [nvarchar](50) NOT NULL,
+	[PostFijo] [nvarchar](20) NULL,
+	[Puerto] [nvarchar](5) NULL,
+	[Descripcion] [nvarchar](50) NULL,
+	[Tipo] [nvarchar](10) NULL,
+	[Email] [nvarchar](50) NULL,
+	[Clave] [nvarchar](50) NULL,
+	[Estado] [int] NOT NULL,
+	[FechaRegistro] [datetime] NULL,
+ CONSTRAINT [PK_D_CONFIG_AXIOS] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[D_CONFIG] ADD  CONSTRAINT [DF_D_CONFIG_AXIOS_FechaRegistro]  DEFAULT (getdate()) FOR [FechaRegistro]
+GO
+
+
